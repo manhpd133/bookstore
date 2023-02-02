@@ -2,7 +2,6 @@ package com.example.booksellstore.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -33,6 +32,6 @@ public class Users {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "status", columnDefinition = "BOOLEAN")
-    private boolean status;
+    @Column(name = "status")
+    private int status;
 }

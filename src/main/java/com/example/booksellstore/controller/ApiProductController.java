@@ -66,9 +66,18 @@ public class ApiProductController {
         return productDetailDTOS;
     }
 
+    @GetMapping("/test")
+    public List<ProductDetailInfo> getProductByDetailPage() {
+
+        List<ProductDetailInfo> productByDetailDTOS = productService.getProductByDetail();
+        log.info(productByDetailDTOS.toString());
+
+        return productByDetailDTOS;
+    }
+
     @PostMapping("/add_product")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-
+        log.info(String.valueOf(product));
         productService.createProduct(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -80,9 +89,9 @@ public class ApiProductController {
     }
 
     @PutMapping("/edit_product/{id}")
-    public int updateProduct (@PathVariable("id") String nameProduct,float price, String img,long idProduct) {
+    public int updateProduct (@PathVariable("id") long idProduct) {
 
-        int products =  productService.updateProduct(nameProduct, price, img, idProduct);
+        int products =  productService.updateProduct( idProduct);
         return products;
     }
     @DeleteMapping("/delete_product/{id}")

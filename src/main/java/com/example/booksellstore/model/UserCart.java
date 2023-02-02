@@ -16,15 +16,15 @@ public class UserCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id_user_cart")
-    private long userCartID;
+    private long id;
 
     @Column(name = "id_user")
-    private long userID;
+    private long userId;
 
     @Column(name = "id_product")
     private long productID;
 
     @Column(name = "quantity")
     private int quantity;
+
 }

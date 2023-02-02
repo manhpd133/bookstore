@@ -9,12 +9,16 @@ import com.example.booksellstore.model.ProductCategory;
 import com.example.booksellstore.reponsitory.ProductRepo;
 import com.example.booksellstore.reponsitory.ProductCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ProductService {
@@ -24,6 +28,9 @@ public class ProductService {
 
     @Autowired
     private ProductCategoryRepo productcategoryRepo;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     public List<ProductResDTO> getGroupProduct() {
         List<Product> products = productRepo.findAll();
@@ -46,10 +53,14 @@ public class ProductService {
     }
 
     public List<ProductDetailInfo> getProductDetail(long idProduct) {
-        return productRepo.getProductsByDetail(idProduct);
+        return productRepo.getProductsDetail(idProduct);
     }
 
-    public List<ProductInfo> getProductName(String nameProduct){
+    public List<ProductDetailInfo> getProductByDetail() {
+        return productRepo.getProductsByDetail();
+    }
+
+    public List<ProductInfo> getProductName(String nameProduct) {
         return productRepo.findByNameProduct(nameProduct);
     }
 
@@ -93,7 +104,7 @@ public class ProductService {
         return productRepo.deleteByProductID(idProduct);
     }
 
-    public int updateProduct(String nameProduct,float price, String img,long idProduct) {
-        return productRepo.updateNameProductAndPriceAndImageByProductID(nameProduct,price,img,idProduct);
+    public int updateProduct(long idProduct) {
+        return productRepo.updateProduct(idProduct);
     }
 }

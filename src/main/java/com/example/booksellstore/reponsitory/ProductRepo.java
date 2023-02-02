@@ -22,9 +22,13 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
     List<ProductInfo> getProductsByPriceDesc();
 
     @Query(value = "Select p. productid as productId,p. name_product as nameProduct,p. image as image,p. price as price, p.detail as detail, p.author as author, p.supplier as supplier, p.quantity as quantity, p.created_date as createdDate" +
+            " from product p " ,nativeQuery = true)
+    List<ProductDetailInfo> getProductsByDetail();
+
+    @Query(value = "Select p. productid as productId,p. name_product as nameProduct,p. image as image,p. price as price, p.detail as detail, p.author as author, p.supplier as supplier, p.quantity as quantity, p.created_date as createdDate" +
             " from product p " +
             "where p.productid = ?1",nativeQuery = true)
-    List<ProductDetailInfo> getProductsByDetail(long idProduct);
+    List<ProductDetailInfo> getProductsDetail(long idProduct);
 
 
     @Query( value = "Select p.productid as productID, p.name_product as nameProduct,p.image,p.price " +
@@ -42,6 +46,6 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
     @Transactional
     @Modifying
     @Query("update Product p set p.nameProduct = ?1, p.price = ?2, p.image = ?3 where p.productID = ?4")
-    int updateNameProductAndPriceAndImageByProductID(String nameProduct, float price, String image, long productID);
+    int updateProduct( long productID);
 
 }
