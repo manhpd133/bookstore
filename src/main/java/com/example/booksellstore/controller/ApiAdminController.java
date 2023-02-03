@@ -17,21 +17,21 @@ public class ApiAdminController {
 
     @PostMapping("/add_product")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-
         productService.createProduct(product);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/edit_product/{id}")
     public int updateProduct (@PathVariable("id") long idProduct) {
-
         int products =  productService.updateProduct(idProduct);
+
         return products;
     }
     @DeleteMapping("/delete_product/{id}")
     public int delteProduct (@PathVariable("id") long productId) {
-
         int products = productService.deleteProductId(productId);
+
         return products;
     }
 }

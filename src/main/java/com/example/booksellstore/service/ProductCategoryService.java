@@ -23,10 +23,14 @@ public class ProductCategoryService {
     public List<ProductInfo> getCategory4(){
         return productCategoryRepo.getByProduct4();
 
-    }public List<ProductInfo> getCategory5(){
+    }
+
+    public List<ProductInfo> getCategory5(){
         return productCategoryRepo.getByProduct5();
 
-    }public List<ProductInfo> getCategory6(){
+    }
+
+    public List<ProductInfo> getCategory6(){
         return productCategoryRepo.getByProduct6();
     }
 

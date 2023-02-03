@@ -1,5 +1,6 @@
 package com.example.booksellstore.service;
 
+import com.example.booksellstore.GoogleSheetApi.SheetServiceUtil;
 import com.example.booksellstore.dto.ProductDetailInfo;
 import com.example.booksellstore.dto.ProductInfo;
 import com.example.booksellstore.dto.ProductResDTO;
@@ -8,6 +9,9 @@ import com.example.booksellstore.model.Product;
 import com.example.booksellstore.model.ProductCategory;
 import com.example.booksellstore.reponsitory.ProductRepo;
 import com.example.booksellstore.reponsitory.ProductCategoryRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,22 +19,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class ProductService {
 
     @Autowired
     private ProductRepo productRepo;
 
     @Autowired
+    private SheetServiceUtil sheetServiceUtil;
+
+    @Autowired
     private ProductCategoryRepo productcategoryRepo;
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    public void syncDataFromSheet () throws GeneralSecurityException, IOException {
+        log.info("Syncing data book from google sheet");
+        sheetServiceUtil.renderVocabFromGoogleSheetToDatabase();
+    }
 
     public List<ProductResDTO> getGroupProduct() {
         List<Product> products = productRepo.findAll();
@@ -54,10 +69,6 @@ public class ProductService {
 
     public List<ProductDetailInfo> getProductDetail(long idProduct) {
         return productRepo.getProductsDetail(idProduct);
-    }
-
-    public List<ProductDetailInfo> getProductByDetail() {
-        return productRepo.getProductsByDetail();
     }
 
     public List<ProductInfo> getProductName(String nameProduct) {
@@ -106,5 +117,29 @@ public class ProductService {
 
     public int updateProduct(long idProduct) {
         return productRepo.updateProduct(idProduct);
+    }
+
+    public Product findProductById(Long productId) throws ChangeSetPersister.NotFoundException  {
+        Product product = null;
+        String cacheKey = "product" + productId;
+        product = (Product) redisTemplate.opsForValue().get(cacheKey);
+            if(product == null) {
+                Optional<Product> o_product = productRepo.findById(productId);
+                if(o_product.isPresent()) {
+                    throw new ChangeSetPersister.NotFoundException();
+                } else {
+                    product = o_product.get();
+                    redisTemplate.opsForValue().set(cacheKey, product, 60, TimeUnit.SECONDS);
+                }
+            }
+        return product;
+    }
+
+    public ResponseEntity<Product> handEditProduct (long id) throws ChangeSetPersister.NotFoundException, JsonProcessingException  {
+        Product product = findProductById(id);
+        String cacheKey = "product" + id;
+        ObjectMapper mapper = new ObjectMapper();
+        redisTemplate.opsForValue().set(cacheKey,mapper.writeValueAsString(product));
+        return null;
     }
 }

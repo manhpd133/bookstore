@@ -31,10 +31,4 @@ public interface UserCartRepo extends JpaRepository<UserCart, Long> {
             " FROM user_cart uc" +
             " WHERE uc.id =?",nativeQuery = true)
     int deleteCart(Long productId);
-
-
-//    @Query("delete from  uc where uc.id =?1")
-//    int deleteCart(Long productID);
-
-
 }

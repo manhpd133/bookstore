@@ -18,7 +18,6 @@ public class ApiCommentController {
 
     @GetMapping("/comment")
     public List<CommentDTO> getCommentPage( @RequestParam(name = "Comment",defaultValue = "1") Long id) {
-
         List<CommentDTO> commentDTOS = commentService.getComment();
         log.info(commentDTOS.toString());
 
@@ -27,7 +26,6 @@ public class ApiCommentController {
 
     @DeleteMapping ("/delete_comment/{id}")
     public List<CommentDTO> postCommentPage( @RequestParam(name = "Comment",defaultValue = "1") Long id) {
-
         List<CommentDTO> commentDTOS = commentService.deleteComment(id);
         log.info(commentDTOS.toString());
 

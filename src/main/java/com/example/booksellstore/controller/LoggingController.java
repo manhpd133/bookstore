@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoggingController {
     @RequestMapping("/comment")
     public String comment(){
-
         LogMarkerUntil.loggerComment.trace("Trace logging");
         LogMarkerUntil.loggerComment.debug("Debug logging");
         LogMarkerUntil.loggerComment.info("Info logging");
@@ -21,7 +20,6 @@ public class LoggingController {
 
     @RequestMapping("/login")
     public String login(){
-
         LogMarkerUntil.loggerLogin.trace("Trace logging");
         LogMarkerUntil.loggerLogin.debug("Debug logging");
         LogMarkerUntil.loggerLogin.info("Info logging");
@@ -32,7 +30,6 @@ public class LoggingController {
 
     @RequestMapping("/test")
     public String test(){
-
         LogMarkerUntil.loggerTest.trace("Trace logging");
         LogMarkerUntil.loggerTest.debug("Debug logging");
         LogMarkerUntil.loggerTest.info("Info logging");

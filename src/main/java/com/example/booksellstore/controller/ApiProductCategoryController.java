@@ -19,47 +19,42 @@ public class ApiProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-    @GetMapping("category_menu1")
-    public List<ProductInfo> getProductCate1Page(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+    @GetMapping("category_manga")
+    public List<ProductInfo> getProductCateManga(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+        List<ProductInfo> productCateManga = productCategoryService.getCategory1();
+        log.info(productCateManga.toString());
 
-        List<ProductInfo> productCate1 = productCategoryService.getCategory1();
-        log.info(productCate1.toString());
-
-        return productCate1;
+        return productCateManga;
     }
 
-    @GetMapping("category_menu2")
-    public List<ProductInfo> getProductCate2Page(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+    @GetMapping("category_story")
+    public List<ProductInfo> getProductCateStory(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+        List<ProductInfo> productCateStory = productCategoryService.getCategory2();
+        log.info(productCateStory.toString());
 
-        List<ProductInfo> productCate2 = productCategoryService.getCategory2();
-        log.info(productCate2.toString());
-
-        return productCate2;
+        return productCateStory;
     }
 
-    @GetMapping("category_menu4")
-    public List<ProductInfo> getProductCate4Page(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+    @GetMapping("category_toy")
+    public List<ProductInfo> getProductCateToy(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+        List<ProductInfo> productCateToy = productCategoryService.getCategory4();
+        log.info(productCateToy.toString());
 
-        List<ProductInfo> productCate4 = productCategoryService.getCategory4();
-        log.info(productCate4.toString());
-
-        return productCate4;
+        return productCateToy;
     }
-    @GetMapping("category_menu5")
-    public List<ProductInfo> getProductCate5Page(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+    @GetMapping("category_decorations")
+    public List<ProductInfo> getProductCateDecorations(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+        List<ProductInfo> productCateDecorations = productCategoryService.getCategory5();
+        log.info(productCateDecorations.toString());
 
-        List<ProductInfo> productCate5 = productCategoryService.getCategory5();
-        log.info(productCate5.toString());
-
-        return productCate5;
+        return productCateDecorations;
     }
-    @GetMapping("category_menu6")
-    public List<ProductInfo> getProductCate6Page(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+    @GetMapping("category_novel")
+    public List<ProductInfo> getProductCateNovel(@RequestParam(name = "ProductCategory", defaultValue = "1") Long id) {
+        List<ProductInfo> productCateNovel = productCategoryService.getCategory6();
+        log.info(productCateNovel.toString());
 
-        List<ProductInfo> productCate6 = productCategoryService.getCategory6();
-        log.info(productCate6.toString());
-
-        return productCate6;
+        return productCateNovel;
     }
 
 

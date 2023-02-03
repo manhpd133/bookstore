@@ -17,8 +17,7 @@ public class CommentController {
      private CommentService commentService;
 
     @GetMapping("/comment")
-    public String getCommentPage(Model model,
-                                  @RequestParam(name = "Comment",defaultValue = "1") Long id){
+    public String getCommentPage(Model model, @RequestParam(name = "Comment",defaultValue = "1") Long id){
 
         List<CommentDTO> commentDTOS = commentService.getComment();
         model.addAttribute("getComment",commentDTOS);

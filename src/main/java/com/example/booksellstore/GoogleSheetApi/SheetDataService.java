@@ -38,7 +38,7 @@ public class SheetDataService {
         try {
             NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
             Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, JSON_FACTORY)).setApplicationName(APPLICATION_NAME).build();
-            ValueRange response = service.spreadsheets().values().get(sheetID, "BookSell!A2:K").execute();
+            ValueRange response = service.spreadsheets().values().get(sheetID, "bookStore!A2:K").execute();
 
             List<List<Object>> rows = response.getValues();
             if (rows == null || rows.isEmpty()) {

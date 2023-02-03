@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,10 +13,10 @@ import java.sql.Date;
 @Builder
 @Entity
 @Table(name = "product")
+
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id_product")
     private long productID;
 

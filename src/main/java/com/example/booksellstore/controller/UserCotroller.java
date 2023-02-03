@@ -20,6 +20,4 @@ public class UserCotroller {
         List<UserResDTO> userDTOS = userService.getListUsers();
         return ResponseEntity.ok(userDTOS);
     }
-
-
 }

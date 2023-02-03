@@ -23,10 +23,9 @@ public class UserCartController {
 
 
     @GetMapping("/user_cart")
-    public String getUserCartPage(Model model,
-                                  @RequestParam(name = "UserCart",defaultValue = "1") Long userCartID){
+    public String getUserCartPage(Model model, @RequestParam(name = "UserCart", defaultValue = "1") Long userCartID) {
 
-        List<UserCart> userCarts  = userCartService.getUserCart();
+        List<UserCart> userCarts = userCartService.getUserCart();
         model.addAttribute("userCart", userCarts);
         System.out.println(userCarts.toString());
 

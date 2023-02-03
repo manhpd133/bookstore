@@ -19,9 +19,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/order")
-    public String getOrderPage(Model model,
-                               @RequestParam(name = "Order",defaultValue = "1") Long orderId){
-
+    public String getOrderPage(Model model, @RequestParam(name = "Order",defaultValue = "1") Long orderId){
         List<OrderDTO> orderDTOS = orderService.getAllOrderDetail();
         model.addAttribute("orderDetailList", orderDTOS);
         System.out.println(orderDTOS.toString());
@@ -30,9 +28,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete_order")
-    public String deleteOrderPage(Model model,
-                                  @RequestParam(name = "Order",defaultValue = "1") Long orderId){
-
+    public String deleteOrderPage(Model model, @RequestParam(name = "Order",defaultValue = "1") Long orderId){
         List<Order> orderInfoList = orderService.deleteOrder();
         model.addAttribute("deleteOrder", orderInfoList);
         System.out.println(orderInfoList.toString());

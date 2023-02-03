@@ -20,7 +20,6 @@ public class ApiOrderController {
 
     @GetMapping("/order")
     public List<OrderDTO> getOrderPage( @RequestParam(name = "Order",defaultValue = "1") Long orderId){
-
         List<OrderDTO> orderDTOS = orderService.getAllOrderDetail();
         log.info(orderDTOS.toString());
 
